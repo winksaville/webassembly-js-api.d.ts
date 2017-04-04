@@ -1,0 +1,12 @@
+{
+  "name": "@types/webassembly-js-api.d.ts",
+  "version": "1.0.0",
+  "description": "Typescript Definitions for WebAssembly MVP",
+  "main": "index.d.ts",
+  "author": "Nidin Vinayakan & Wink Saville",
+  "license": "MIT",
+  "devDependencies": {
+    "dtslint": "^0.1.1",
+    "typescript": "^2.2.2"
+  }
+}
