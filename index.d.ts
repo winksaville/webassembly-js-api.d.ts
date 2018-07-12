@@ -9,21 +9,23 @@
  * for more information.
  */
 declare namespace WebAssembly {
+    interface ModuleExport {
+        name: string;
+        kind: string;
+    }
+
+    interface ModuleImport extends ModuleExport {
+        module: string;
+    }
+
     /**
      * WebAssembly.Module
      */
     class Module {
         constructor(bufferSource: ArrayBuffer | Uint8Array);
         static customSections(module: Module, sectionName: string): ArrayBuffer[];
-        static exports(module: Module): Array<{
-            name: string;
-            kind: string;
-        }>;
-        static imports(module: Module): Array<{
-            module: string;
-            name: string;
-            kind: string;
-        }>;
+        static exports(module: Module): ModuleExport[];
+        static imports(module: Module): ModuleImport[];
     }
 
     /**
@@ -52,18 +54,18 @@ declare namespace WebAssembly {
     /**
      * WebAssembly.Table
      */
-    interface TableDescriptor {
+    interface TableDescriptor extends MemoryDescriptor {
         element: "anyfunc";
-        initial: number;
-        maximum?: number;
     }
+
+    type AnyFunc = (args: any[]) => any;
 
     class Table {
         readonly length: number;
         constructor(tableDescriptor: TableDescriptor);
-        get(index: number): (args: any[]) => any;
+        get(index: number): AnyFunc;
         grow(numElements: number): number;
-        set(index: number, value: (args: any[]) => any): void;
+        set(index: number, value: AnyFunc): void;
     }
 
     /**
