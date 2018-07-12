@@ -22,7 +22,7 @@ declare namespace WebAssembly {
      * WebAssembly.Module
      */
     class Module {
-        constructor(bufferSource: ArrayBuffer | ArrayBufferView);
+        constructor(bufferSource: BufferSource);
         static customSections(module: Module, sectionName: string): ArrayBuffer[];
         static exports(module: Module): ModuleExport[];
         static imports(module: Module): ModuleImport[];
@@ -58,7 +58,7 @@ declare namespace WebAssembly {
         element: "anyfunc";
     }
 
-    type AnyFunc = (args: any[]) => any;
+    type AnyFunc = ((args: any[]) => any) | null;
 
     class Table {
         readonly length: number;
@@ -77,15 +77,19 @@ declare namespace WebAssembly {
 
     class RuntimeError extends Error {}
 
-    function compile(bufferSource: ArrayBuffer | ArrayBufferView): Promise<Module>;
+    function compile(bufferSource: BufferSource): Promise<Module>;
+
+    function compileStreaming(source: Response | Promise<Response>): Promise<Module>;
 
     interface ResultObject {
         module: Module;
         instance: Instance;
     }
 
-    function instantiate(bufferSource: ArrayBuffer | ArrayBufferView, importObject?: any): Promise<ResultObject>;
+    function instantiate(bufferSource: BufferSource, importObject?: any): Promise<ResultObject>;
     function instantiate(module: Module, importObject?: any): Promise<Instance>;
 
-    function validate(bufferSource: ArrayBuffer | ArrayBufferView): boolean;
+    function instantiateStreaming(source: Response | Promise<Response>, importObject?: any): Promise<ResultObject>;
+
+    function validate(bufferSource: BufferSource): boolean;
 }
