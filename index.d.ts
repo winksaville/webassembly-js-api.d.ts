@@ -22,7 +22,7 @@ declare namespace WebAssembly {
      * WebAssembly.Module
      */
     class Module {
-        constructor(bufferSource: ArrayBuffer | Uint8Array);
+        constructor(bufferSource: ArrayBuffer | ArrayBufferView);
         static customSections(module: Module, sectionName: string): ArrayBuffer[];
         static exports(module: Module): ModuleExport[];
         static imports(module: Module): ModuleImport[];
@@ -77,15 +77,15 @@ declare namespace WebAssembly {
 
     class RuntimeError extends Error {}
 
-    function compile(bufferSource: ArrayBuffer | Uint8Array): Promise<Module>;
+    function compile(bufferSource: ArrayBuffer | ArrayBufferView): Promise<Module>;
 
     interface ResultObject {
         module: Module;
         instance: Instance;
     }
 
-    function instantiate(bufferSource: ArrayBuffer | Uint8Array, importObject?: any): Promise<ResultObject>;
+    function instantiate(bufferSource: ArrayBuffer | ArrayBufferView, importObject?: any): Promise<ResultObject>;
     function instantiate(module: Module, importObject?: any): Promise<Instance>;
 
-    function validate(bufferSource: ArrayBuffer | Uint8Array): boolean;
+    function validate(bufferSource: ArrayBuffer | ArrayBufferView): boolean;
 }
