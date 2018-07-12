@@ -69,29 +69,11 @@ declare namespace WebAssembly {
     /**
      * Errors
      */
-    class CompileError extends Error {
-        readonly fileName: string;
-        readonly lineNumber: string;
-        readonly columnNumber: string;
-        constructor(message?: string, fileName?: string, lineNumber?: number);
-        toString(): string;
-    }
+    class CompileError extends Error {}
 
-    class LinkError extends Error {
-        readonly fileName: string;
-        readonly lineNumber: string;
-        readonly columnNumber: string;
-        constructor(message?: string, fileName?: string, lineNumber?: number);
-        toString(): string;
-    }
+    class LinkError extends Error {}
 
-    class RuntimeError extends Error {
-        readonly fileName: string;
-        readonly lineNumber: string;
-        readonly columnNumber: string;
-        constructor(message?: string, fileName?: string, lineNumber?: number);
-        toString(): string;
-    }
+    class RuntimeError extends Error {}
 
     function compile(bufferSource: ArrayBuffer | Uint8Array): Promise<Module>;
 
